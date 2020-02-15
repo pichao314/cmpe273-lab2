@@ -80,9 +80,12 @@ def patc(id):
     info = request.json
     for cl in classes:
         if id == cl['id']:
+            for cs in cl['students']:
+                if cs['id'] == info['id']:
+                    return "Student already in class!" ,202
             for st in students:
                 if info['id'] == st['id']:
                     cl['students'].append(st)
-                    return "Added!",201
+                    return jsonify(cl), 200
             return "Student ID Not Found!", 202
     return "Class ID not found!", 202
