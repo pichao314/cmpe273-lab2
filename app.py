@@ -26,7 +26,7 @@ def get(id):
     for student in students:
         if student['id'] == id:
             return jsonify(student), 200
-    return "Not Found!", 204
+    return "Not Found!", 202
 
 
 @app.route('/students', methods=['POST'])
@@ -36,7 +36,7 @@ def post():
     info = request.json
     for student in students:
         if info['id'] == student['id']:
-            return "ID existed!", 204
+            return "ID existed!", 202
     students.append({'id': info['id'], 'name': info['name']})
     return "Added!", 201
 
@@ -59,7 +59,7 @@ def getc(id):
     for cl in classes:
         if cl['id'] == id:
             return jsonify(cl), 200
-    return "Not Found!", 204
+    return "Not Found!", 202
 
 
 @app.route('/classes', methods=['POST'])
@@ -69,7 +69,7 @@ def postc():
     info = request.json
     for cl in classes:
         if info['id'] == cl['id']:
-            return "ID existed!", 204
+            return "ID existed!", 202
     classes.append({'id': info['id'], 'name': info['name'], 'students': []})
     return "Added!", 201
 
@@ -83,13 +83,13 @@ def patc(id):
         if id == cl['id']:
             for cs in cl['students']:
                 if cs['id'] == info['id']:
-                    return "Student already in class!", 204
+                    return "Student already in class!", 202
             for st in students:
                 if info['id'] == st['id']:
                     cl['students'].append(st)
                     return jsonify(cl), 201
-            return "Student ID Not Found!", 204
-    return "Class ID not found!", 204
+            return "Student ID Not Found!", 202
+    return "Class ID not found!", 202
 
 
 if __name__ == "__main__":
